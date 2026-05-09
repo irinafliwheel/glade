@@ -8,95 +8,60 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --parchment:      #F2ECD9;
       --parchment-mid:  #E8E0CB;
       --parchment-deep: #DDD5BF;
       --ink:            #19170F;
-      --ink-muted:      #4A4740;
+      --ink-muted:      #38342A;
       --forest:         #253D2F;
       --forest-mid:     #3A5E49;
       --gold:           #8C6614;
       --gold-warm:      #B88830;
-      --stone:          #8A8275;
-      --stone-light:    #B0A898;
-      --cream-line:     rgba(25,23,15,0.08);
+      --stone:          #6A6455;
+      --stone-light:    #9A9285;
+      --cream-line:     rgba(25,23,15,0.1);
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background-color: var(--parchment);
       color: var(--ink);
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 18px;
-      line-height: 1.75;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      font-size: 19px; line-height: 1.75;
+      overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-
-    /* TOPO BACKGROUND */
-    .topo-canvas {
-      position: fixed; inset: 0;
-      width: 100%; height: 100%;
-      pointer-events: none; z-index: 0;
-    }
-
-    /* GRAIN OVERLAY */
+    .topo-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
     body::after {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
       pointer-events: none; z-index: 999;
     }
-
-    .site {
-      position: relative; z-index: 1;
-      max-width: 1200px; margin: 0 auto; padding: 0 4rem;
-    }
+    .site { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
     @media (max-width: 768px) { .site { padding: 0 1.5rem; } }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 1.8rem 4rem;
       background: linear-gradient(to bottom, var(--parchment) 55%, transparent);
     }
-    .nav-mark {
-      font-family: 'Cormorant Garamond', serif; font-weight: 500;
-      font-size: 0.85rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--forest);
-    }
+    .nav-mark { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.55em; text-transform: uppercase; color: var(--forest); }
     .nav-right { display: flex; align-items: center; gap: 2rem; }
-    .nav-loc {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone);
-    }
-    .nav-cta {
-      font-family: 'Jost', sans-serif; font-weight: 400;
-      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--forest); border: 1px solid var(--forest);
-      padding: 0.45rem 1rem; text-decoration: none;
-      transition: background 0.25s, color 0.25s;
-    }
+    .nav-loc { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stone); }
+    .nav-cta { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--forest); border: 1px solid var(--forest); padding: 0.5rem 1.1rem; text-decoration: none; transition: background 0.25s, color 0.25s; }
     .nav-cta:hover { background: var(--forest); color: var(--parchment); }
     @media (max-width: 768px) { nav { padding: 1.5rem; } .nav-loc { display: none; } }
 
-    /* ── ANIMATIONS ── */
-    .reveal {
-      opacity: 0; transform: translateY(28px);
-      transition: opacity 0.9s ease, transform 0.9s ease;
-    }
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.1s; }
     .reveal-delay-2 { transition-delay: 0.22s; }
     .reveal-delay-3 { transition-delay: 0.34s; }
     .reveal-delay-4 { transition-delay: 0.46s; }
-
     .hero-load { opacity: 0; transform: translateY(22px); animation: fadeUp 1s ease forwards; }
     .hero-load-2 { animation-delay: 0.25s; }
     .hero-load-3 { animation-delay: 0.45s; }
@@ -104,98 +69,45 @@
     .hero-load-5 { animation-delay: 0.85s; }
     .hero-load-6 { animation-delay: 1.05s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
     .rule { width: 40px; height: 1px; background: var(--gold); margin: 0 auto; }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      padding: 10rem 2rem 6rem;
-    }
-    .hero-eyebrow {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: 0.58rem; letter-spacing: 0.5em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 2.5rem;
-    }
-    /* ── KEY FIX: tighter letter-spacing so GLADE centers without clipping ── */
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10rem 2rem 6rem; }
+    .hero-eyebrow { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.48em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
+    /*
+      CENTERING FIX: letter-spacing adds trailing whitespace after the last character,
+      visually pushing "GLADE" left of true center. padding-left equal to letter-spacing
+      compensates, restoring optical center.
+    */
     .hero-name {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: clamp(4rem, 13vw, 11rem);
-      letter-spacing: 0.15em;
-      padding-right: 0.15em; /* compensate trailing space */
-      color: var(--forest); line-height: 0.95;
-      margin-bottom: 0.5rem;
+      font-size: clamp(5rem, 15vw, 11rem);
+      letter-spacing: 0.25em;
+      padding-left: 0.25em;
+      color: var(--forest); line-height: 0.95; margin-bottom: 0.5rem;
     }
-    .hero-rule-wrap {
-      display: flex; align-items: center; gap: 1.5rem;
-      margin-bottom: 2.5rem; width: 100%; max-width: 560px; justify-content: center;
-    }
+    .hero-rule-wrap { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; width: 100%; max-width: 560px; justify-content: center; }
     .hero-rule-line { flex: 1; height: 1px; background: var(--parchment-deep); }
-    .hero-rule-diamond {
-      width: 5px; height: 5px; background: var(--gold);
-      transform: rotate(45deg); flex-shrink: 0;
-    }
-    .hero-statement {
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
-      font-size: clamp(1.25rem, 2.6vw, 1.75rem);
-      color: var(--ink); max-width: 600px; line-height: 1.6;
-      margin-bottom: 1.2rem;
-    }
-    .hero-statement em { font-style: italic; color: var(--forest); }
-    .hero-sub {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic;
-      font-size: clamp(0.95rem, 1.8vw, 1.2rem);
-      color: var(--stone); max-width: 500px; line-height: 1.75;
-      margin-bottom: 3rem;
-    }
-    .hero-meta {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--stone); margin-bottom: 3.5rem;
-    }
-    .hero-btn {
-      display: inline-block;
-      font-family: 'Jost', sans-serif; font-weight: 400;
-      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--parchment); background: var(--forest);
-      padding: 1rem 2.4rem; text-decoration: none;
-      border: 1px solid var(--forest);
-      transition: background 0.3s, color 0.3s, letter-spacing 0.3s;
-    }
+    .hero-rule-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+    .hero-statement { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--ink); max-width: 640px; line-height: 1.45; margin-bottom: 1.5rem; }
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--stone); max-width: 520px; line-height: 1.75; margin-bottom: 3rem; }
+    .hero-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 3.5rem; }
+    .hero-btn { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--parchment); background: var(--forest); padding: 1rem 2.4rem; text-decoration: none; border: 1px solid var(--forest); transition: background 0.3s, color 0.3s, letter-spacing 0.3s; }
     .hero-btn:hover { background: transparent; color: var(--forest); letter-spacing: 0.38em; }
 
-    /* ── SECTIONS ── */
+    /* SECTIONS */
     section { padding: 7rem 0; border-top: 1px solid var(--cream-line); }
-    .section-label {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: 0.55rem; letter-spacing: 0.5em; text-transform: uppercase;
-      color: var(--stone); margin-bottom: 3rem;
-      display: flex; align-items: center; gap: 1.2rem;
-    }
-    .section-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--cream-line); max-width: 80px;
-    }
+    .section-label { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.48em; text-transform: uppercase; color: var(--stone); margin-bottom: 3rem; display: flex; align-items: center; gap: 1.2rem; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--cream-line); max-width: 80px; }
 
-    /* ── FOUR PILLARS ── */
+    /* PILLARS */
     .doctrine-grid { display: grid; grid-template-columns: repeat(4,1fr); }
     .doctrine-item { padding: 3rem 2.5rem 3rem 0; border-right: 1px solid var(--cream-line); }
     .doctrine-item:last-child { border-right: none; padding-right: 0; }
     .doctrine-item:not(:first-child) { padding-left: 2.5rem; }
-    .doctrine-num {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: 0.8rem; color: var(--gold); letter-spacing: 0.2em;
-      margin-bottom: 1.5rem; display: block;
-    }
-    .doctrine-head {
-      font-family: 'Cormorant Garamond', serif; font-weight: 500;
-      font-size: 1.5rem; color: var(--forest); line-height: 1.2; margin-bottom: 1.2rem;
-    }
-    .doctrine-body {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: 0.92rem; color: var(--ink-muted); line-height: 1.85;
-    }
+    .doctrine-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 0.85rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 1.5rem; display: block; }
+    .doctrine-head { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.55rem; color: var(--forest); line-height: 1.2; margin-bottom: 1.2rem; }
+    .doctrine-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1rem; color: var(--ink-muted); line-height: 1.85; }
     @media (max-width: 900px) {
       .doctrine-grid { grid-template-columns: 1fr 1fr; }
       .doctrine-item { border-right: none; border-bottom: 1px solid var(--cream-line); padding: 2.5rem 0; }
@@ -203,94 +115,65 @@
     }
     @media (max-width: 560px) { .doctrine-grid { grid-template-columns: 1fr; } }
 
-    /* ── GEOGRAPHY ── */
+    /* GEOGRAPHY */
     .geo-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-    .geo-heading {
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: clamp(2rem, 4vw, 3rem); line-height: 1.25; color: var(--forest); margin-bottom: 2rem;
-    }
+    .geo-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem,4vw,3rem); line-height: 1.25; color: var(--forest); margin-bottom: 2rem; }
     .geo-heading em { font-style: italic; color: var(--forest-mid); }
-    .geo-body { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1rem; line-height: 1.9; color: var(--ink-muted); }
+    .geo-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; line-height: 1.9; color: var(--ink-muted); }
     .geo-body p + p { margin-top: 1.2rem; }
     .geo-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .geo-stat { padding: 1.75rem; background: var(--parchment-mid); border: 1px solid var(--parchment-deep); }
     .geo-stat-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.6rem; color: var(--forest); line-height: 1; margin-bottom: 0.4rem; }
-    .geo-stat-label { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); line-height: 1.6; }
+    .geo-stat-label { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); line-height: 1.6; }
     @media (max-width: 768px) { .geo-inner { grid-template-columns: 1fr; gap: 3rem; } }
 
-    /* ── FORMATION ── */
-    .formation-center { text-align: center; max-width: 800px; margin: 0 auto; }
+    /* FORMATION */
+    .formation-center { text-align: center; max-width: 840px; margin: 0 auto; }
     .formation-qualities { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-    .fq {
-      font-family: 'Cormorant Garamond', serif; font-weight: 500; font-style: italic;
-      font-size: clamp(1.1rem, 2.2vw, 1.65rem); color: var(--forest);
-      padding: 0.55rem 1.1rem; border: 1px solid var(--parchment-deep); background: var(--parchment-mid);
-    }
-    .fq-connector { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.7rem; color: var(--stone-light); align-self: center; }
-    .formation-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 1rem; color: var(--stone); margin-bottom: 2.5rem; }
-    .formation-manifesto {
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
-      font-size: clamp(1.05rem,1.9vw,1.3rem); color: var(--ink);
-      line-height: 1.95; max-width: 700px; margin: 0 auto 2.5rem;
-    }
+    .fq { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-style: italic; font-size: clamp(1.1rem,2.2vw,1.65rem); color: var(--forest); padding: 0.6rem 1.2rem; border: 1px solid var(--parchment-deep); background: var(--parchment-mid); }
+    .fq-connector { font-family: 'Jost', sans-serif; font-weight: 200; font-size: 0.75rem; color: var(--stone-light); align-self: center; }
+    .formation-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 1.05rem; color: var(--stone); margin-bottom: 2.5rem; }
+    .formation-manifesto { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.1rem,2vw,1.35rem); color: var(--ink); line-height: 1.9; max-width: 720px; margin: 0 auto 2.5rem; }
     .formation-manifesto strong { font-weight: 600; color: var(--forest); }
-    .formation-pullquote { border-left: 2px solid var(--gold); padding: 1rem 2rem; text-align: left; max-width: 640px; margin: 0 auto; }
-    .formation-pullquote p { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: clamp(1rem,1.8vw,1.25rem); color: var(--ink-muted); line-height: 1.85; }
+    .formation-pullquote { border-left: 2px solid var(--gold); padding: 1.2rem 2rem; text-align: left; max-width: 660px; margin: 0 auto; }
+    .formation-pullquote p { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: clamp(1.05rem,1.8vw,1.25rem); color: var(--ink-muted); line-height: 1.85; }
 
-    /* ── REFUSALS ── */
-    .refusal-list { list-style: none; max-width: 800px; }
-    .refusal-list li {
-      display: flex; gap: 1.5rem; align-items: baseline;
-      padding: 1.4rem 0; border-bottom: 1px solid var(--cream-line);
-      font-family: 'Cormorant Garamond', serif; font-weight: 400;
-      font-size: 1.05rem; color: var(--ink-muted); line-height: 1.7;
-    }
+    /* CIVILIZATION */
+    .civilization-wrap { background: var(--parchment-mid); border: 1px solid var(--parchment-deep); padding: 5rem 6rem; text-align: center; max-width: 900px; margin: 0 auto; }
+    @media (max-width: 768px) { .civilization-wrap { padding: 3rem 2rem; } }
+    .civilization-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem,3.5vw,2.6rem); color: var(--forest); line-height: 1.3; margin-bottom: 2rem; }
+    .civilization-heading em { font-style: italic; }
+    .civilization-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.05rem,1.9vw,1.3rem); color: var(--ink-muted); line-height: 1.9; max-width: 700px; margin: 0 auto; }
+    .civilization-body strong { font-weight: 600; color: var(--forest); }
+    .civilization-body p + p { margin-top: 1.2rem; }
+
+    /* REFUSALS */
+    .refusal-list { list-style: none; max-width: 820px; }
+    .refusal-list li { display: flex; gap: 1.5rem; align-items: baseline; padding: 1.5rem 0; border-bottom: 1px solid var(--cream-line); font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.1rem; color: var(--ink-muted); line-height: 1.75; }
     .refusal-list li:first-child { border-top: 1px solid var(--cream-line); }
-    .refusal-glyph { font-size: 0.55rem; letter-spacing: 0.15em; font-family: 'Jost', sans-serif; font-weight: 300; color: var(--gold); white-space: nowrap; margin-top: 0.35rem; flex-shrink: 0; }
+    .refusal-glyph { font-size: 0.6rem; letter-spacing: 0.15em; font-family: 'Jost', sans-serif; font-weight: 300; color: var(--gold); white-space: nowrap; margin-top: 0.35rem; flex-shrink: 0; }
 
-    /* ── RECORD SECTION ── */
-    .record-section {
-      background: var(--forest); margin: 0 -4rem; padding: 7rem 4rem;
-      border-top: none; position: relative; overflow: hidden;
-    }
-    .record-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
+    /* RECORD */
+    .record-section { background: var(--forest); margin: 0 -4rem; padding: 7rem 4rem; border-top: none; position: relative; overflow: hidden; }
+    .record-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; }
     @media (max-width: 768px) { .record-section { margin: 0 -1.5rem; padding: 5rem 1.5rem; } }
     .record-center { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
     .record-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--parchment); line-height: 1.25; }
-    .record-body { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1rem; color: rgba(242,236,217,0.65); line-height: 1.9; }
-    .record-caveat { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.88rem; color: rgba(242,236,217,0.4); line-height: 1.75; }
-    .record-btn {
-      display: inline-block;
-      font-family: 'Jost', sans-serif; font-weight: 400;
-      font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--forest); background: var(--parchment);
-      padding: 1.1rem 3rem; text-decoration: none;
-      border: 1px solid var(--parchment);
-      transition: background 0.3s, color 0.3s, letter-spacing 0.3s;
-    }
+    .record-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; color: rgba(242,236,217,0.7); line-height: 1.9; }
+    .record-caveat { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.95rem; color: rgba(242,236,217,0.42); line-height: 1.75; }
+    .record-btn { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--forest); background: var(--parchment); padding: 1.15rem 3rem; text-decoration: none; border: 1px solid var(--parchment); transition: background 0.3s, color 0.3s, letter-spacing 0.3s; }
     .record-btn:hover { background: transparent; color: var(--parchment); letter-spacing: 0.45em; }
-    .record-note {
-      font-family: 'Jost', sans-serif; font-weight: 300;
-      font-size: 0.56rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: rgba(184,136,48,0.7); display: flex; align-items: center; gap: 0.8rem;
-    }
+    .record-note { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(184,136,48,0.75); display: flex; align-items: center; gap: 0.8rem; }
 
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--cream-line); padding: 3rem 0;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-mark { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--forest); }
-    .footer-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); text-align: right; line-height: 1.8; }
+    /* FOOTER */
+    footer { border-top: 1px solid var(--cream-line); padding: 3rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-mark { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 0.8rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--forest); }
+    .footer-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-align: right; line-height: 1.8; }
   </style>
 </head>
 <body>
 
-  <!-- TOPOGRAPHIC BACKGROUND — a clearing viewed from above -->
+  <!-- TOPOGRAPHIC BACKGROUND -->
   <svg class="topo-canvas" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs><style>.tr{fill:none;stroke:#253D2F;}</style></defs>
     <ellipse class="tr" cx="720" cy="355" rx="52"  ry="34"  stroke-width="0.7" opacity="0.10" transform="rotate(-6,720,355)"/>
@@ -304,7 +187,6 @@
     <ellipse class="tr" cx="704" cy="339" rx="682" ry="410" stroke-width="0.6" opacity="0.034" transform="rotate(2,704,339)"/>
     <ellipse class="tr" cx="702" cy="337" rx="788" ry="468" stroke-width="0.6" opacity="0.026" transform="rotate(3,702,337)"/>
     <ellipse class="tr" cx="700" cy="335" rx="900" ry="528" stroke-width="0.5" opacity="0.018" transform="rotate(4,700,335)"/>
-    <!-- Fern upper-right -->
     <g opacity="0.055" transform="translate(1200,60) rotate(15)">
       <path d="M0,0 C0,0 -5,40 -2,80 C1,120 0,160 0,200" fill="none" stroke="#253D2F" stroke-width="1.2"/>
       <path d="M-2,30 C-15,22 -30,18 -38,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
@@ -320,7 +202,6 @@
       <path d="M-2,122 C16,108 32,102 40,110" fill="none" stroke="#253D2F" stroke-width="0.8"/>
       <path d="M-2,148 C14,136 28,130 34,138" fill="none" stroke="#253D2F" stroke-width="0.7"/>
     </g>
-    <!-- Fern lower-left -->
     <g opacity="0.038" transform="translate(80,720) rotate(-20) scale(0.8)">
       <path d="M0,0 C0,0 -5,40 -2,80 C1,120 0,160 0,200" fill="none" stroke="#253D2F" stroke-width="1.2"/>
       <path d="M-2,30 C-15,22 -30,18 -38,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
@@ -343,7 +224,7 @@
 
   <div class="site">
 
-    <!-- ══ HERO ══ -->
+    <!-- HERO -->
     <section class="hero" style="border-top:none;">
       <p class="hero-eyebrow hero-load">Bergen County, New Jersey · K–6 · In Formation</p>
       <h1 class="hero-name hero-load hero-load-2">GLADE</h1>
@@ -352,59 +233,45 @@
         <div class="hero-rule-diamond"></div>
         <div class="hero-rule-line"></div>
       </div>
-      <p class="hero-statement hero-load hero-load-4">
-        Childhood is the most important work.<br>
-        <em>We treat it that way.</em>
-      </p>
-      <p class="hero-sub hero-load hero-load-5">
-        A nature-immersed K–6 school in Bergen County forming children who are technically formidable, morally imperturbable, and entrepreneurially sovereign — for a lifetime.
-      </p>
-      <p class="hero-meta hero-load hero-load-6">
-        Nature-immersed · Mastery-based · Character-forward · Ages 5–12
-      </p>
+      <p class="hero-statement hero-load hero-load-4">Childhood is the most important work.</p>
+      <p class="hero-sub hero-load hero-load-5">A nature-immersed K–6 school in Bergen County forming children who are technically formidable, morally imperturbable, and entrepreneurially sovereign — for a lifetime.</p>
+      <p class="hero-meta hero-load hero-load-6">Nature-immersed · Mastery-based · Character-forward · Ages 5–12</p>
       <a href="#record" class="hero-btn hero-load hero-load-6" style="animation-delay:1.05s;">Raise your hand</a>
     </section>
 
-    <!-- ══ FOUR PILLARS ══ -->
+    <!-- FOUR PILLARS -->
     <section>
       <p class="section-label reveal">What we believe</p>
       <div class="doctrine-grid">
-
         <div class="doctrine-item reveal reveal-delay-1">
           <span class="doctrine-num">I.</span>
           <h3 class="doctrine-head">Learners for life,<br>not students for the moment.</h3>
           <p class="doctrine-body">A child who learns how to build knowledge — rather than receive it — has the one skill that compounds across every domain for an entire lifetime. Papert understood it: the most powerful learning produces something real outside the child's head, something that can succeed or fail on its own terms. A program. A model. A story. A proof. This is the engine we are building. Everything else follows from it.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-2">
           <span class="doctrine-num">II.</span>
           <h3 class="doctrine-head">Competence earns confidence.<br>Nothing else does.</h3>
           <p class="doctrine-body">The standard does not move because a child finds it difficult. Time is the variable; demonstrated mastery is the constant. A child who has done genuinely hard things, repeatedly, from an early age — who has failed, rebuilt, and succeeded in a context that mattered — carries a settled self-belief that no praise or credential can manufacture. Steve Jobs called it a reality distortion field. It is not a personality trait. It is the natural consequence of a childhood spent building real things and meeting real standards.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-3">
           <span class="doctrine-num">III.</span>
-          <h3 class="doctrine-head">Identity before the world<br>tries to form it.</h3>
-          <p class="doctrine-body">Ages five through twelve are the primary window. This is when the substrate is laid — before the full weight of adolescent culture, social media, and peer pressure arrives. A child who enters middle school knowing who she is, what she can do, and what she stands for is essentially non-recruitable by the subcultures of mediocrity and self-destruction she will inevitably encounter. The competition for her attention becomes too weak. Glade treats this window with the urgency it deserves.</p>
+          <h3 class="doctrine-head">The courage<br>to be disliked.</h3>
+          <p class="doctrine-body">Glade is not simply forming resilient children. It is forming children with a strong enough constitution to say no — to negative influence, to peer pressure, to the easy capitulation of going along. A child formed this way does not wait for permission to choose differently. She affirmatively curates her own surroundings, her own influences, her own path. She has the rarest capability: the courage to be unpopular in service of what she knows is right. That constitution, built before adolescence, cannot be manufactured later. It is built here, or it is not built at all.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-4">
           <span class="doctrine-num">IV.</span>
           <h3 class="doctrine-head">Technology that serves.<br>Never technology that consumes.</h3>
           <p class="doctrine-body">A child who wields AI to build things — who directs powerful tools toward her own purposes — is positioned for every future. A child conditioned by algorithmic consumption is not. Glade also protects what most schools eliminate: genuine boredom, unstructured time, free play in the outdoors. These are not the absence of learning. They are the space in which curiosity, inner life, and the capacity to use powerful tools purposefully actually form.</p>
         </div>
-
       </div>
     </section>
 
-    <!-- ══ GEOGRAPHY ══ -->
+    <!-- GEOGRAPHY -->
     <section>
       <div class="geo-inner">
         <div>
           <p class="section-label reveal">An extraordinary accident</p>
-          <h2 class="geo-heading reveal reveal-delay-1">
-            Twenty miles from the world.<br><em>Ten minutes from wilderness.</em>
-          </h2>
+          <h2 class="geo-heading reveal reveal-delay-1">Twenty miles from the world.<br><em>Ten minutes from wilderness.</em></h2>
           <div class="geo-body reveal reveal-delay-2">
             <p>Bergen County is an accident of extraordinary luck. Most families near a city like New York must choose between cultural proximity and the kind of childhood that requires space, motion, and honest contact with the natural world. Bergen County refuses that choice.</p>
             <p>The Ramapos, the Palisades, the river corridors — genuine wilderness, accessible daily, in all weather, within minutes of a suburb twenty miles from one of the great cities on earth. The best thinking happens when the body is moving and attention is released. Anyone who has had their best idea on a walk, or outside, or in motion, understands the mechanism. Glade makes this a structural condition of the school day. Not a field trip. Not enrichment. The ground itself.</p>
@@ -432,7 +299,7 @@
       </div>
     </section>
 
-    <!-- ══ FORMATION ══ -->
+    <!-- FORMATION -->
     <section>
       <div class="formation-center">
         <p class="section-label reveal" style="justify-content:center; text-align:center;">What Glade forms</p>
@@ -445,72 +312,63 @@
         </div>
         <p class="formation-sub reveal reveal-delay-2">Not aspirations for exceptional children. The design target for every child.</p>
         <div class="rule reveal reveal-delay-2" style="margin-bottom:2.5rem;"></div>
-        <p class="formation-manifesto reveal reveal-delay-3">
-          Glade is not trying to produce children who behave well under supervision. It is trying to produce children with an internalized identity so solid — grounded in demonstrated competence, genuine values, and serious inherited culture — that they are <strong>essentially non-recruitable</strong> by the subcultures of mediocrity and self-destruction they will inevitably encounter. A child who knows what she is capable of, who has a community of excellence to return to, who has a rich inner life built on real skill and serious ideas, simply does not find drug culture, social media nihilism, or peer-pressure status games interesting. <strong>The competition for her attention is too weak.</strong>
-        </p>
+        <p class="formation-manifesto reveal reveal-delay-3">Glade is not trying to produce children who behave well under supervision. It is trying to produce children with an internalized identity so solid — grounded in demonstrated competence, genuine values, and serious inherited culture — that they are <strong>essentially non-recruitable</strong> by the subcultures of mediocrity and self-destruction they will inevitably encounter. A child who knows what she is capable of, who has a community of excellence to return to, who has a rich inner life built on real skill and serious ideas, simply does not find drug culture, social media nihilism, or peer-pressure status games interesting. <strong>The competition for her attention is too weak.</strong></p>
         <div class="formation-pullquote reveal reveal-delay-4">
           <p>Children who train alongside high performers raise their own standards. A child surrounded by peers who practice instruments, carry themselves with the settled confidence of capable people, and come from homes where ideas and excellence matter operates at a different level. Glade designs this peer group deliberately. The twenty-year horizon includes the most selective universities in the world as one available option — and equally, leapfrogging that pathway entirely into early ventures or category-defining work that makes the credential beside the point. <strong>The terminal goal is not the option. The terminal goal is consequence.</strong></p>
         </div>
       </div>
     </section>
 
-    <!-- ══ REFUSALS ══ -->
+    <!-- CIVILIZATIONAL MISSION -->
+    <section>
+      <div class="civilization-wrap reveal">
+        <p class="section-label" style="justify-content:center; text-align:center; margin-bottom:2rem;">The mission</p>
+        <h2 class="civilization-heading reveal reveal-delay-1">
+          We are not building successful individuals.<br>
+          <em>We are building the generation that will save the world.</em>
+        </h2>
+        <div class="civilization-body reveal reveal-delay-2">
+          <p>The most consequential problems of the next century — civilizational in scale, urgent in timeline — will be solved or not solved by the children being formed right now. Glade is being built on a specific conviction: that formation matters more than instruction, that values are upstream of capability, and that the children who will actually change things are not zero-sum thinkers extracting value from the world, but <strong>positive-sum builders adding to it</strong>.</p>
+          <p>The Judeo-Christian moral tradition — its account of human dignity, the demands of conscience, the structure of integrity — is a resource Glade draws on freely and seriously. Not as doctrine. As formation. A child who has genuinely internalized that every person carries inherent worth, that honesty is non-negotiable, and that greatness in service of others is the only greatness worth having, is a different adult than one who has not. <strong>This is the greatest generation. It is being built now, one child at a time.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFUSALS -->
     <section>
       <p class="section-label reveal">What Glade refuses</p>
       <ul class="refusal-list">
-        <li class="reveal reveal-delay-1">
-          <span class="refusal-glyph">—</span>
-          <span>To advance children by age rather than mastery. Age-based cohorts are administrative convenience. Demonstrated competence is the only gate.</span>
-        </li>
-        <li class="reveal reveal-delay-1">
-          <span class="refusal-glyph">—</span>
-          <span>To use peer ranking as the primary feedback instrument. The competitive environment is real and deliberate. The formal assessment is criterion-referenced — the child is measured against the domain, never her classmates.</span>
-        </li>
-        <li class="reveal reveal-delay-2">
-          <span class="refusal-glyph">—</span>
-          <span>To let test optimization drive curriculum. Children who have genuinely mastered material will perform well on assessments. Curricula designed around those assessments produce children who can pass tests. These are not the same child.</span>
-        </li>
-        <li class="reveal reveal-delay-2">
-          <span class="refusal-glyph">—</span>
-          <span>To protect children from failure. Systematic protection from failure is developmental harm dressed as care. A child who has never failed in a context that matters has not learned that failure is recoverable, difficulty is informative, and persistence under uncertainty is a choice.</span>
-        </li>
-        <li class="reveal reveal-delay-3">
-          <span class="refusal-glyph">—</span>
-          <span>To silo subjects. History without literature, mathematics, and ethics is chronicle. STEM without history and philosophy produces technicians who cannot evaluate the consequences of their work.</span>
-        </li>
-        <li class="reveal reveal-delay-3">
-          <span class="refusal-glyph">—</span>
-          <span>To be morally neutral about outcomes. Glade is explicitly forming children for excellence — intellectual, ethical, and practical. Not all peer cultures are equally beneficial. Not all outcomes are equally good.</span>
-        </li>
-        <li class="reveal reveal-delay-4">
-          <span class="refusal-glyph">—</span>
-          <span>To renegotiate its model for any individual family. Glade admits families, not children. Alignment is a prerequisite for enrollment. The program is the program.</span>
-        </li>
+        <li class="reveal reveal-delay-1"><span class="refusal-glyph">—</span><span>To advance children by age rather than mastery. Age-based cohorts are administrative convenience. Demonstrated competence is the only gate.</span></li>
+        <li class="reveal reveal-delay-1"><span class="refusal-glyph">—</span><span>To use peer ranking as the primary feedback instrument. The competitive environment is real and deliberate. The formal assessment is criterion-referenced — the child is measured against the domain, never her classmates.</span></li>
+        <li class="reveal reveal-delay-2"><span class="refusal-glyph">—</span><span>To let test optimization drive curriculum. Children who have genuinely mastered material will perform well on assessments. Curricula designed around those assessments produce children who can pass tests. These are not the same child.</span></li>
+        <li class="reveal reveal-delay-2"><span class="refusal-glyph">—</span><span>To protect children from failure. Systematic protection from failure is developmental harm dressed as care. A child who has never failed in a context that matters has not learned that failure is recoverable, difficulty is informative, and persistence under uncertainty is a choice.</span></li>
+        <li class="reveal reveal-delay-3"><span class="refusal-glyph">—</span><span>To silo subjects. History without literature, mathematics, and ethics is chronicle. STEM without history and philosophy produces technicians who cannot evaluate the consequences of their work.</span></li>
+        <li class="reveal reveal-delay-3"><span class="refusal-glyph">—</span><span>To be morally neutral about outcomes. Glade is explicitly forming children for excellence — intellectual, ethical, and practical. Not all peer cultures are equally beneficial. Not all outcomes are equally good.</span></li>
+        <li class="reveal reveal-delay-4"><span class="refusal-glyph">—</span><span>To renegotiate its model for any individual family. Glade admits families, not children. Alignment is a prerequisite for enrollment. The program is the program.</span></li>
       </ul>
     </section>
 
-  </div><!-- /site -->
+  </div>
 
-  <!-- ══ RECORD ══ -->
+  <!-- RECORD -->
   <div class="record-section" id="record">
     <div class="record-center">
       <p class="section-label reveal" style="color:rgba(242,236,217,0.35); justify-content:center;">Founding conversation</p>
       <h2 class="record-heading reveal reveal-delay-1" style="text-align:center; font-size:clamp(2rem,4vw,3rem); margin:0 auto 1.5rem;">
-        Glade does not yet exist.<br>
-        This is how we find the families<br>
-        who should help build it.
+        We are not looking for interest.<br>
+        We are looking for recognition.
       </h2>
       <div class="record-body reveal reveal-delay-2" style="text-align:center; margin:0 auto 2.5rem;">
-        <p>If you are a Bergen County family who recognizes what this is — if the founding philosophy reads as urgent rather than merely interesting — your hand should already be up.</p>
-        <p style="margin-top:1rem;">This is not a waitlist. It is a founding conversation. The families present at the beginning help determine what Glade becomes before it has culture to protect.</p>
+        <p>If you have read this page and something in you has shifted — if this reads as urgent rather than interesting, as obvious rather than novel — you are who this is for.</p>
+        <p style="margin-top:1rem;">Geography is not the constraint. Families who would move, who would build around this, who already understand in their bones why the K–6 years are everything — those are the families we are looking for. We are not taking applications. We are not having conversations. We are finding the hundred families who recognize what this is without needing to be persuaded.</p>
       </div>
       <div class="record-caveat reveal reveal-delay-3" style="text-align:center; border-top:1px solid rgba(242,236,217,0.12); border-bottom:1px solid rgba(242,236,217,0.12); padding:1.2rem 0; margin:0 auto 2.5rem;">
-        Glade is in active exploration. No school has been founded, no capital has been raised, and no commitments have been made or implied. This form asks one question: would your family seek enrollment if it did exist?
+        No school exists yet. No commitments are implied. This form asks one question: do you recognize this?
       </div>
       <div class="reveal reveal-delay-4" style="text-align:center; margin-bottom:2rem;">
         <a href="https://forms.gle/beCuXVWFVb3Hw1Eo6" target="_blank" class="record-btn">Raise your hand →</a>
       </div>
-      <p class="record-note reveal reveal-delay-4" style="justify-content:center;">Bergen County families · No commitment implied · Two minutes</p>
+      <p class="record-note reveal reveal-delay-4" style="justify-content:center;">Wherever you are · However far you would come · No commitment implied</p>
     </div>
   </div>
 
@@ -533,7 +391,6 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => obs.observe(el));
-
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
@@ -542,6 +399,5 @@
       });
     });
   </script>
-
 </body>
 </html>
