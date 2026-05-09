@@ -76,14 +76,14 @@
     .hero-eyebrow { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.48em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
     /*
       CENTERING FIX: letter-spacing adds trailing whitespace after the last character,
-      visually pushing "GLADE" left of true center. padding-left equal to letter-spacing
-      compensates, restoring optical center.
+      shifting the visual word left of true center. translateX(half letter-spacing)
+      shifts rendered pixels right to compensate — reliable across all browsers.
     */
     .hero-name {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
       font-size: clamp(5rem, 15vw, 11rem);
       letter-spacing: 0.25em;
-      padding-left: 0.25em;
+      transform: translateX(0.125em);
       color: var(--forest); line-height: 0.95; margin-bottom: 0.5rem;
     }
     .hero-rule-wrap { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; width: 100%; max-width: 560px; justify-content: center; }
@@ -380,6 +380,7 @@
         In formation · Subject to revision<br>
         © 2026 Irina Marinescu · All rights reserved
       </div>
+      <a href="https://fliwheel.xyz" style="font-family:'Jost',sans-serif; font-weight:300; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--stone); text-decoration:none; border-bottom:1px solid var(--parchment-deep); padding-bottom:1px; transition:color 0.15s;" onmouseover="this.style.color='var(--forest)'" onmouseout="this.style.color='var(--stone)'">← fliwheel.xyz</a>
     </footer>
   </div>
 
