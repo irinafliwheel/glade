@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Glade · Bergen County, New Jersey</title>
-  <meta name="description" content="Childhood is the most important work. Glade is a nature-immersed K–6 school forming technically formidable, morally imperturbable, entrepreneurially sovereign young people in Bergen County, NJ.">
+  <meta name="description" content="Childhood is the most important work. Glade is a nature-immersed K–6 school in Bergen County, NJ — cultivating technically formidable, morally grounded, entrepreneurially sovereign young people.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -74,11 +74,6 @@
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 10rem 2rem 6rem; }
     .hero-eyebrow { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.48em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; }
-    /*
-      CENTERING FIX: letter-spacing adds trailing whitespace after the last character,
-      shifting the visual word left of true center. translateX(half letter-spacing)
-      shifts rendered pixels right to compensate — reliable across all browsers.
-    */
     .hero-name {
       font-family: 'Cormorant Garamond', serif; font-weight: 300;
       font-size: clamp(5rem, 15vw, 11rem);
@@ -90,7 +85,8 @@
     .hero-rule-line { flex: 1; height: 1px; background: var(--parchment-deep); }
     .hero-rule-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
     .hero-statement { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--ink); max-width: 640px; line-height: 1.45; margin-bottom: 1.5rem; }
-    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--stone); max-width: 520px; line-height: 1.75; margin-bottom: 3rem; }
+    /* REVISED: sub names the problem rather than repeating formation adjectives */
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--stone); max-width: 540px; line-height: 1.75; margin-bottom: 3rem; }
     .hero-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 3.5rem; }
     .hero-btn { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--parchment); background: var(--forest); padding: 1rem 2.4rem; text-decoration: none; border: 1px solid var(--forest); transition: background 0.3s, color 0.3s, letter-spacing 0.3s; }
     .hero-btn:hover { background: transparent; color: var(--forest); letter-spacing: 0.38em; }
@@ -121,11 +117,13 @@
     .geo-heading em { font-style: italic; color: var(--forest-mid); }
     .geo-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; line-height: 1.9; color: var(--ink-muted); }
     .geo-body p + p { margin-top: 1.2rem; }
-    .geo-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    /* REVISED: 3-column grid for 3 stats */
+    .geo-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .geo-stat { padding: 1.75rem; background: var(--parchment-mid); border: 1px solid var(--parchment-deep); }
     .geo-stat-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.6rem; color: var(--forest); line-height: 1; margin-bottom: 0.4rem; }
     .geo-stat-label { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); line-height: 1.6; }
     @media (max-width: 768px) { .geo-inner { grid-template-columns: 1fr; gap: 3rem; } }
+    @media (max-width: 560px) { .geo-stat-grid { grid-template-columns: 1fr; } }
 
     /* FORMATION */
     .formation-center { text-align: center; max-width: 840px; margin: 0 auto; }
@@ -141,7 +139,8 @@
     /* CIVILIZATION */
     .civilization-wrap { background: var(--parchment-mid); border: 1px solid var(--parchment-deep); padding: 5rem 6rem; text-align: center; max-width: 900px; margin: 0 auto; }
     @media (max-width: 768px) { .civilization-wrap { padding: 3rem 2rem; } }
-    .civilization-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem,3.5vw,2.6rem); color: var(--forest); line-height: 1.3; margin-bottom: 2rem; }
+    /* REVISED: more grounded headline, no "save the world" */
+    .civilization-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.6rem,3vw,2.3rem); color: var(--forest); line-height: 1.35; margin-bottom: 2rem; }
     .civilization-heading em { font-style: italic; }
     .civilization-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.05rem,1.9vw,1.3rem); color: var(--ink-muted); line-height: 1.9; max-width: 700px; margin: 0 auto; }
     .civilization-body strong { font-weight: 600; color: var(--forest); }
@@ -234,7 +233,8 @@
         <div class="hero-rule-line"></div>
       </div>
       <p class="hero-statement hero-load hero-load-4">Childhood is the most important work.</p>
-      <p class="hero-sub hero-load hero-load-5">A nature-immersed K–6 school in Bergen County forming children who are technically formidable, morally imperturbable, and entrepreneurially sovereign — for a lifetime.</p>
+      <!-- REVISED: names the problem, not the formation adjectives -->
+      <p class="hero-sub hero-load hero-load-5">A new K–6 school taking shape in Bergen County for families who understand why the elementary years are everything — and who find what is currently available insufficient.</p>
       <p class="hero-meta hero-load hero-load-6">Nature-immersed · Mastery-based · Character-forward · Ages 5–12</p>
       <a href="#record" class="hero-btn hero-load hero-load-6" style="animation-delay:1.05s;">Raise your hand</a>
     </section>
@@ -243,26 +243,32 @@
     <section>
       <p class="section-label reveal">What we believe</p>
       <div class="doctrine-grid">
+
         <div class="doctrine-item reveal reveal-delay-1">
           <span class="doctrine-num">I.</span>
           <h3 class="doctrine-head">Learners for life,<br>not students for the moment.</h3>
-          <p class="doctrine-body">A child who learns how to build knowledge — rather than receive it — has the one skill that compounds across every domain for an entire lifetime. Papert understood it: the most powerful learning produces something real outside the child's head, something that can succeed or fail on its own terms. A program. A model. A story. A proof. This is the engine we are building. Everything else follows from it.</p>
+          <!-- REVISED: last two sentences cut -->
+          <p class="doctrine-body">A child who learns how to build knowledge — rather than receive it — has the one skill that compounds across every domain for an entire lifetime. Papert understood it: the most powerful learning produces something real outside the child's head, something that can succeed or fail on its own terms. A program. A model. A story. A proof.</p>
         </div>
+
         <div class="doctrine-item reveal reveal-delay-2">
           <span class="doctrine-num">II.</span>
           <h3 class="doctrine-head">Competence earns confidence.<br>Nothing else does.</h3>
           <p class="doctrine-body">The standard does not move because a child finds it difficult. Time is the variable; demonstrated mastery is the constant. A child who has done genuinely hard things, repeatedly, from an early age — who has failed, rebuilt, and succeeded in a context that mattered — carries a settled self-belief that no praise or credential can manufacture. Steve Jobs called it a reality distortion field. It is not a personality trait. It is the natural consequence of a childhood spent building real things and meeting real standards.</p>
         </div>
+
         <div class="doctrine-item reveal reveal-delay-3">
           <span class="doctrine-num">III.</span>
           <h3 class="doctrine-head">The courage<br>to be disliked.</h3>
-          <p class="doctrine-body">Glade is not simply forming resilient children. It is forming children with a strong enough constitution to say no — to negative influence, to peer pressure, to the easy capitulation of going along. A child formed this way does not wait for permission to choose differently. She affirmatively curates her own surroundings, her own influences, her own path. She has the rarest capability: the courage to be unpopular in service of what she knows is right. That constitution, built before adolescence, cannot be manufactured later. It is built here, or it is not built at all.</p>
+          <p class="doctrine-body">Glade is not simply raising resilient children. It is walking alongside children toward a constitution strong enough to say no — to negative influence, to peer pressure, to the easy capitulation of going along. A child who arrives at that constitution does not wait for permission to choose differently. She affirmatively curates her own surroundings, her own influences, her own path. She has the rarest capability: the courage to be unpopular in service of what she knows is right. That constitution, built before adolescence, cannot be manufactured later. It takes root here, or it does not take root at all.</p>
         </div>
+
         <div class="doctrine-item reveal reveal-delay-4">
           <span class="doctrine-num">IV.</span>
           <h3 class="doctrine-head">Technology that serves.<br>Never technology that consumes.</h3>
           <p class="doctrine-body">A child who wields AI to build things — who directs powerful tools toward her own purposes — is positioned for every future. A child conditioned by algorithmic consumption is not. Glade also protects what most schools eliminate: genuine boredom, unstructured time, free play in the outdoors. These are not the absence of learning. They are the space in which curiosity, inner life, and the capacity to use powerful tools purposefully actually form.</p>
         </div>
+
       </div>
     </section>
 
@@ -278,6 +284,7 @@
             <p>The children formed here — rigorously, in motion, grounded in the physical world — will be equally positioned for Princeton, for Y Combinator, or for building the institutions that make both beside the point. This is where the next generation's best work takes root.</p>
           </div>
         </div>
+        <!-- REVISED: 3 stats, 3 columns — dropped 75% and 1+1=3 -->
         <div class="geo-stat-grid reveal reveal-delay-3">
           <div class="geo-stat">
             <div class="geo-stat-num">20<span style="font-size:1.3rem">mi</span></div>
@@ -288,12 +295,8 @@
             <div class="geo-stat-label">Ages served · Primary identity formation window</div>
           </div>
           <div class="geo-stat">
-            <div class="geo-stat-num">75<span style="font-size:1.3rem">%</span></div>
-            <div class="geo-stat-label">Of lifetime parent-child time occurs before age twelve</div>
-          </div>
-          <div class="geo-stat">
-            <div class="geo-stat-num">1+1<span style="font-size:1.3rem">=3</span></div>
-            <div class="geo-stat-label">A pluralism of highly engaged families compounds into something no curriculum can substitute</div>
+            <div class="geo-stat-num">2027</div>
+            <div class="geo-stat-label">Target opening · Founding cohort forming now</div>
           </div>
         </div>
       </div>
@@ -302,7 +305,7 @@
     <!-- FORMATION -->
     <section>
       <div class="formation-center">
-        <p class="section-label reveal" style="justify-content:center; text-align:center;">What Glade forms</p>
+        <p class="section-label reveal" style="justify-content:center; text-align:center;">What grows here</p>
         <div class="formation-qualities reveal reveal-delay-1">
           <span class="fq">Technically formidable</span>
           <span class="fq-connector">·</span>
@@ -310,9 +313,9 @@
           <span class="fq-connector">·</span>
           <span class="fq">Entrepreneurially sovereign</span>
         </div>
-        <p class="formation-sub reveal reveal-delay-2">Not aspirations for exceptional children. The design target for every child.</p>
+        <p class="formation-sub reveal reveal-delay-2">Not aspirations for exceptional children. What every child is capable of, when the conditions honor it.</p>
         <div class="rule reveal reveal-delay-2" style="margin-bottom:2.5rem;"></div>
-        <p class="formation-manifesto reveal reveal-delay-3">Glade is not trying to produce children who behave well under supervision. It is trying to produce children with an internalized identity so solid — grounded in demonstrated competence, genuine values, and serious inherited culture — that they are <strong>essentially non-recruitable</strong> by the subcultures of mediocrity and self-destruction they will inevitably encounter. A child who knows what she is capable of, who has a community of excellence to return to, who has a rich inner life built on real skill and serious ideas, simply does not find drug culture, social media nihilism, or peer-pressure status games interesting. <strong>The competition for her attention is too weak.</strong></p>
+        <p class="formation-manifesto reveal reveal-delay-3">Glade is not trying to raise children who behave well under supervision. It is walking alongside children toward an internalized identity so solid — grounded in demonstrated competence, genuine values, and serious inherited culture — that they are <strong>essentially non-recruitable</strong> by the subcultures of mediocrity and self-destruction they will inevitably encounter. A child who knows what she is capable of, who has a community of excellence to return to, who has a rich inner life built on real skill and serious ideas, simply does not find drug culture, social media nihilism, or peer-pressure status games interesting. <strong>The competition for her attention is too weak.</strong></p>
         <div class="formation-pullquote reveal reveal-delay-4">
           <p>Children who train alongside high performers raise their own standards. A child surrounded by peers who practice instruments, carry themselves with the settled confidence of capable people, and come from homes where ideas and excellence matter operates at a different level. Glade designs this peer group deliberately. The twenty-year horizon includes the most selective universities in the world as one available option — and equally, leapfrogging that pathway entirely into early ventures or category-defining work that makes the credential beside the point. <strong>The terminal goal is not the option. The terminal goal is consequence.</strong></p>
         </div>
@@ -320,16 +323,19 @@
     </section>
 
     <!-- CIVILIZATIONAL MISSION -->
+    <!-- REVISED: headline uses the grounded claim from the body; "save the world" removed -->
     <section>
       <div class="civilization-wrap reveal">
         <p class="section-label" style="justify-content:center; text-align:center; margin-bottom:2rem;">The mission</p>
         <h2 class="civilization-heading reveal reveal-delay-1">
-          We are not building successful individuals.<br>
-          <em>We are building the generation that will save the world.</em>
+          The children growing up right now<br>
+          will either solve the defining problems of the next century —<br>
+          <em>or they won't.</em>
         </h2>
         <div class="civilization-body reveal reveal-delay-2">
-          <p>The most consequential problems of the next century — civilizational in scale, urgent in timeline — will be solved or not solved by the children being formed right now. Glade is being built on a specific conviction: that formation matters more than instruction, that values are upstream of capability, and that the children who will actually change things are not zero-sum thinkers extracting value from the world, but <strong>positive-sum builders adding to it</strong>.</p>
-          <p>The Judeo-Christian moral tradition — its account of human dignity, the demands of conscience, the structure of integrity — is a resource Glade draws on freely and seriously. Not as doctrine. As formation. A child who has genuinely internalized that every person carries inherent worth, that honesty is non-negotiable, and that greatness in service of others is the only greatness worth having, is a different adult than one who has not. <strong>This is the greatest generation. It is being built now, one child at a time.</strong></p>
+          <p>To have a child is to be given something you did not earn and cannot fully comprehend. Our greatest work — as parents, as educators — is to shepherd her into her own best life with high intention and love. Glade is being built in that spirit.</p>
+          <p>We are not trying to stamp children into a predetermined shape. We are trying to create the conditions in which what is already in them — the curiosity, the moral seriousness, the capacity for real excellence — can emerge fully and be honored. The Judeo-Christian tradition grounds our conviction that this matters: every child carries irreplaceable worth, and the education she receives should answer to that.</p>
+          <p>Children who are genuinely honored — stretched, challenged, and taken seriously — grow into the <strong>positive-sum builders</strong> who make things better. <strong>This is the greatest generation. It is being raised now, one child at a time.</strong></p>
         </div>
       </div>
     </section>
@@ -343,12 +349,12 @@
         <li class="reveal reveal-delay-2"><span class="refusal-glyph">—</span><span>To let test optimization drive curriculum. Children who have genuinely mastered material will perform well on assessments. Curricula designed around those assessments produce children who can pass tests. These are not the same child.</span></li>
         <li class="reveal reveal-delay-2"><span class="refusal-glyph">—</span><span>To protect children from failure. Systematic protection from failure is developmental harm dressed as care. A child who has never failed in a context that matters has not learned that failure is recoverable, difficulty is informative, and persistence under uncertainty is a choice.</span></li>
         <li class="reveal reveal-delay-3"><span class="refusal-glyph">—</span><span>To silo subjects. History without literature, mathematics, and ethics is chronicle. STEM without history and philosophy produces technicians who cannot evaluate the consequences of their work.</span></li>
-        <li class="reveal reveal-delay-3"><span class="refusal-glyph">—</span><span>To be morally neutral about outcomes. Glade is explicitly forming children for excellence — intellectual, ethical, and practical. Not all peer cultures are equally beneficial. Not all outcomes are equally good.</span></li>
+        <li class="reveal reveal-delay-3"><span class="refusal-glyph">—</span><span>To be morally neutral about outcomes. Glade is explicitly oriented toward excellence in the whole child — intellectual, ethical, and practical. Not all peer cultures are equally beneficial. Not all outcomes are equally good.</span></li>
         <li class="reveal reveal-delay-4"><span class="refusal-glyph">—</span><span>To renegotiate its model for any individual family. Glade admits families, not children. Alignment is a prerequisite for enrollment. The program is the program.</span></li>
       </ul>
     </section>
 
-  </div>
+  </div><!-- /site -->
 
   <!-- RECORD -->
   <div class="record-section" id="record">
@@ -400,5 +406,6 @@
       });
     });
   </script>
+
 </body>
 </html>
