@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glade · Bergen County, New Jersey</title>
+  <meta name="description" content="A nature-immersed K–6 school in Bergen County forming technically formidable, morally imperturbable, entrepreneurially sovereign young people. Opening 2027.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --parchment:       #F2ECD9;
+      --parchment-mid:   #E8E0CB;
+      --parchment-deep:  #DDD5BF;
+      --ink:             #19170F;
+      --ink-muted:       #4A4740;
+      --forest:          #253D2F;
+      --forest-mid:      #3A5E49;
+      --forest-light:    #5A8A6E;
+      --gold:            #8C6614;
+      --gold-warm:       #B88830;
+      --stone:           #8A8275;
+      --stone-light:     #B0A898;
+      --cream-line:      rgba(25,23,15,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--parchment);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── TOPOGRAPHIC SVG BACKGROUND ─── */
+    .topo-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ─── SITE WRAP ─── */
+    .site {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .site { padding: 0 1.5rem; }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 4rem;
+      background: linear-gradient(to bottom, var(--parchment) 55%, transparent);
+    }
+
+    .nav-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-loc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .nav-cta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--forest);
+      border: 1px solid var(--forest);
+      padding: 0.45rem 1rem;
+      text-decoration: none;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--forest);
+      color: var(--parchment);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.5rem; }
+      .nav-loc { display: none; }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+    .reveal-delay-4 { transition-delay: 0.46s; }
+
+    .hero-load {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 1s ease forwards;
+    }
+    .hero-load-2 { animation-delay: 0.25s; }
+    .hero-load-3 { animation-delay: 0.45s; }
+    .hero-load-4 { animation-delay: 0.65s; }
+    .hero-load-5 { animation-delay: 0.85s; }
+    .hero-load-6 { animation-delay: 1.05s; }
+    .hero-load-7 { animation-delay: 1.25s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── DIVIDER ─── */
+    .rule { width: 40px; height: 1px; background: var(--gold); margin: 0 auto; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10rem 1rem 6rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(5.5rem, 16vw, 12rem);
+      letter-spacing: 0.3em;
+      color: var(--forest);
+      line-height: 0.9;
+      margin-bottom: 0.5rem;
+      padding-right: 0.3em;
+    }
+
+    .hero-rule-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      width: 100%;
+      max-width: 520px;
+      justify-content: center;
+    }
+
+    .hero-rule-line { flex: 1; height: 1px; background: var(--parchment-deep); }
+    .hero-rule-diamond {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .hero-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      color: var(--ink-muted);
+      max-width: 520px;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-meta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 3.5rem;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 400;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      background: var(--forest);
+      padding: 1rem 2.4rem;
+      text-decoration: none;
+      border: 1px solid var(--forest);
+      transition: background 0.3s ease, color 0.3s ease, letter-spacing 0.3s ease;
+      cursor: pointer;
+    }
+
+    .hero-btn:hover {
+      background: transparent;
+      color: var(--forest);
+      letter-spacing: 0.38em;
+    }
+
+    .hero-scroll-note {
+      margin-top: 5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--stone-light);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-scroll-line { width: 30px; height: 1px; background: var(--stone-light); }
+
+    /* ─── SECTION WRAPPER ─── */
+    section {
+      padding: 7rem 0;
+      border-top: 1px solid var(--cream-line);
+    }
+
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.55rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--cream-line);
+      max-width: 80px;
+    }
+
+    /* ─── DOCTRINE (FOUR PILLARS) ─── */
+    .doctrine-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .doctrine-item {
+      padding: 3rem 2.5rem 3rem 0;
+      border-right: 1px solid var(--cream-line);
+    }
+
+    .doctrine-item:last-child {
+      border-right: none;
+      padding-right: 0;
+    }
+
+    .doctrine-item:not(:first-child) { padding-left: 2.5rem; }
+
+    .doctrine-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .doctrine-head {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 1.55rem;
+      color: var(--forest);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .doctrine-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.85;
+    }
+
+    @media (max-width: 900px) {
+      .doctrine-grid { grid-template-columns: 1fr 1fr; }
+      .doctrine-item {
+        border-right: none;
+        border-bottom: 1px solid var(--cream-line);
+        padding: 2.5rem 0;
+      }
+      .doctrine-item:not(:first-child) { padding-left: 0; }
+      .doctrine-item:nth-child(odd) { padding-right: 0; }
+    }
+
+    @media (max-width: 560px) {
+      .doctrine-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── GEOGRAPHY ─── */
+    .geo-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .geo-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.25;
+      color: var(--forest);
+      margin-bottom: 2rem;
+    }
+
+    .geo-heading em { font-style: italic; color: var(--forest-mid); }
+
+    .geo-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink-muted);
+    }
+
+    .geo-body p + p { margin-top: 1.2rem; }
+
+    .geo-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .geo-stat {
+      padding: 1.75rem;
+      background: var(--parchment-mid);
+      border: 1px solid var(--parchment-deep);
+    }
+
+    .geo-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 2.6rem;
+      color: var(--forest);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .geo-stat-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.56rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--stone);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .geo-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* ─── FORMATION ─── */
+    .formation-center {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .formation-qualities {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .fq {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.2vw, 1.65rem);
+      color: var(--forest);
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--parchment-deep);
+      background: var(--parchment-mid);
+    }
+
+    .fq-connector {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.7rem;
+      color: var(--stone-light);
+      align-self: center;
+    }
+
+    .formation-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: var(--stone);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+
+    .formation-manifesto {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+      color: var(--ink);
+      line-height: 1.95;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .formation-manifesto strong { font-weight: 600; color: var(--forest); }
+
+    .formation-pullquote {
+      border-left: 2px solid var(--gold);
+      padding: 1rem 2rem;
+      text-align: left;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .formation-pullquote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      color: var(--ink-muted);
+      line-height: 1.85;
+    }
+
+    /* ─── REFUSALS ─── */
+    .refusal-list {
+      list-style: none;
+      max-width: 800px;
+    }
+
+    .refusal-list li {
+      display: flex;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--cream-line);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+
+    .refusal-list li:first-child { border-top: 1px solid var(--cream-line); }
+
+    .refusal-glyph {
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      color: var(--gold);
+      white-space: nowrap;
+      margin-top: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    /* ─── RECORD SECTION (FORM) ─── */
+    .record-section {
+      background: var(--forest);
+      margin: 0 -4rem;
+      padding: 7rem 4rem;
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .record-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .record-section { margin: 0 -1.5rem; padding: 5rem 1.5rem; }
+    }
+
+    .record-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .record-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    .record-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--parchment);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .record-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      color: rgba(242,236,217,0.65);
+      line-height: 1.9;
+    }
+
+    .record-body p + p { margin-top: 1rem; }
+
+    .record-note {
+      margin-top: 2rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.56rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-warm);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .record-note::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--gold-warm);
+    }
+
+    /* Form */
+    .form-group { margin-bottom: 1.5rem; }
+
+    .form-group label {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.56rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(242,236,217,0.45);
+      margin-bottom: 0.6rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(242,236,217,0.07);
+      border: 1px solid rgba(242,236,217,0.15);
+      color: var(--parchment);
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1rem;
+      padding: 0.9rem 1rem;
+      outline: none;
+      transition: border-color 0.25s ease, background 0.25s ease;
+      -webkit-appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(242,236,217,0.3);
+      font-style: italic;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(184,136,48,0.6);
+      background: rgba(242,236,217,0.1);
+    }
+
+    .form-group textarea { resize: none; height: 90px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-submit {
+      margin-top: 2rem;
+      width: 100%;
+      background: var(--parchment);
+      color: var(--forest);
+      border: none;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      padding: 1.2rem 2rem;
+      cursor: pointer;
+      transition: background 0.3s ease, letter-spacing 0.3s ease;
+    }
+
+    .form-submit:hover {
+      background: var(--parchment-deep);
+      letter-spacing: 0.45em;
+    }
+
+    .form-disclaimer {
+      margin-top: 1rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.53rem;
+      letter-spacing: 0.15em;
+      color: rgba(242,236,217,0.28);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Success */
+    .form-success { display: none; text-align: center; padding: 3rem 2rem; }
+    .form-success.visible { display: block; }
+
+    .form-success-glyph {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      color: var(--gold-warm);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .form-success-head {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--parchment);
+      margin-bottom: 0.8rem;
+    }
+
+    .form-success-body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(242,236,217,0.4);
+      line-height: 1.8;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--cream-line);
+      padding: 3rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--forest);
+    }
+
+    .footer-meta {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.56rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-align: right;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPOGRAPHIC BACKGROUND — a clearing viewed from above -->
+  <svg class="topo-canvas" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><style>.tr{fill:none;stroke:#253D2F;}</style></defs>
+    <ellipse class="tr" cx="720" cy="355" rx="52"  ry="34"  stroke-width="0.7" opacity="0.10" transform="rotate(-6,720,355)"/>
+    <ellipse class="tr" cx="718" cy="353" rx="108" ry="70"  stroke-width="0.7" opacity="0.09" transform="rotate(-5,718,353)"/>
+    <ellipse class="tr" cx="716" cy="351" rx="172" ry="110" stroke-width="0.7" opacity="0.082" transform="rotate(-4,716,351)"/>
+    <ellipse class="tr" cx="714" cy="349" rx="242" ry="153" stroke-width="0.7" opacity="0.074" transform="rotate(-3,714,349)"/>
+    <ellipse class="tr" cx="712" cy="347" rx="318" ry="199" stroke-width="0.7" opacity="0.066" transform="rotate(-2,712,347)"/>
+    <ellipse class="tr" cx="710" cy="345" rx="400" ry="248" stroke-width="0.7" opacity="0.058" transform="rotate(-1,710,345)"/>
+    <ellipse class="tr" cx="708" cy="343" rx="488" ry="300" stroke-width="0.7" opacity="0.05"  transform="rotate(0,708,343)"/>
+    <ellipse class="tr" cx="706" cy="341" rx="582" ry="354" stroke-width="0.6" opacity="0.042" transform="rotate(1,706,341)"/>
+    <ellipse class="tr" cx="704" cy="339" rx="682" ry="410" stroke-width="0.6" opacity="0.034" transform="rotate(2,704,339)"/>
+    <ellipse class="tr" cx="702" cy="337" rx="788" ry="468" stroke-width="0.6" opacity="0.026" transform="rotate(3,702,337)"/>
+    <ellipse class="tr" cx="700" cy="335" rx="900" ry="528" stroke-width="0.5" opacity="0.018" transform="rotate(4,700,335)"/>
+    <!-- Botanical: fern upper-right -->
+    <g opacity="0.055" transform="translate(1200, 60) rotate(15)">
+      <path d="M0,0 C0,0 -5,40 -2,80 C1,120 0,160 0,200" fill="none" stroke="#253D2F" stroke-width="1.2"/>
+      <path d="M-2,30 C-15,22 -30,18 -38,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,50 C-18,40 -36,36 -46,42" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,72 C-20,60 -40,55 -52,62" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,96 C-22,82 -44,76 -56,84" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+      <path d="M-2,122 C-22,108 -42,102 -52,110" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+      <path d="M-2,148 C-20,136 -38,130 -46,138" fill="none" stroke="#253D2F" stroke-width="0.7"/>
+      <path d="M-2,30 C10,22 24,18 32,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,50 C14,40 30,36 40,42" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,72 C16,60 34,55 44,62" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,96 C18,82 36,76 46,84" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+      <path d="M-2,122 C16,108 32,102 40,110" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+      <path d="M-2,148 C14,136 28,130 34,138" fill="none" stroke="#253D2F" stroke-width="0.7"/>
+    </g>
+    <!-- Botanical: fern lower-left, fainter -->
+    <g opacity="0.038" transform="translate(80, 720) rotate(-20) scale(0.8)">
+      <path d="M0,0 C0,0 -5,40 -2,80 C1,120 0,160 0,200" fill="none" stroke="#253D2F" stroke-width="1.2"/>
+      <path d="M-2,30 C-15,22 -30,18 -38,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,55 C-20,44 -40,39 -50,46" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,82 C-22,68 -44,62 -55,70" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+      <path d="M-2,30 C10,22 24,18 32,24" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,55 C16,44 34,39 44,46" fill="none" stroke="#253D2F" stroke-width="0.9"/>
+      <path d="M-2,82 C18,68 36,62 46,70" fill="none" stroke="#253D2F" stroke-width="0.8"/>
+    </g>
+  </svg>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <span class="nav-mark">Glade</span>
+    <div class="nav-right">
+      <span class="nav-loc">Bergen County · NJ · Est. 2027</span>
+      <a href="#record" class="nav-cta">Raise your hand</a>
+    </div>
+  </nav>
+
+  <div class="site">
+
+    <!-- ══ HERO ══ -->
+    <section class="hero" style="border-top: none;">
+      <p class="hero-eyebrow hero-load">Bergen County, New Jersey · K–6 · Opening 2027</p>
+
+      <h1 class="hero-name hero-load hero-load-2">GLADE</h1>
+
+      <div class="hero-rule-wrap hero-load hero-load-3">
+        <div class="hero-rule-line"></div>
+        <div class="hero-rule-diamond"></div>
+        <div class="hero-rule-line"></div>
+      </div>
+
+      <p class="hero-statement hero-load hero-load-4">
+        For the children who will refuse<br>ordinary futures.
+      </p>
+
+      <p class="hero-meta hero-load hero-load-5">
+        Nature-immersed · Technically formidable · Morally imperturbable · Entrepreneurially sovereign
+      </p>
+
+      <a href="#record" class="hero-btn hero-load hero-load-6">Raise your hand</a>
+
+      <div class="hero-scroll-note hero-load hero-load-7">
+        <div class="hero-scroll-line"></div>
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ══ FOUR PILLARS ══ -->
+    <section>
+      <p class="section-label reveal">Founding doctrine</p>
+      <div class="doctrine-grid">
+
+        <div class="doctrine-item reveal reveal-delay-1">
+          <span class="doctrine-num">I.</span>
+          <h3 class="doctrine-head">Built,<br>not received.</h3>
+          <p class="doctrine-body">
+            Learning is most powerful not merely when a child thinks actively, but when she is making a shareable artifact — something outside her head that can succeed or fail on its own terms. A program. A machine. A model. Every curriculum choice answers one question: are children constructing knowledge, or performing comprehension for someone else's evaluation?
+          </p>
+        </div>
+
+        <div class="doctrine-item reveal reveal-delay-2">
+          <span class="doctrine-num">II.</span>
+          <h3 class="doctrine-head">Mastery,<br>not motion.</h3>
+          <p class="doctrine-body">
+            Time is the variable. Demonstrated competence is the constant. A child who advances without owning the prerequisite is accumulating a debt she will eventually pay. Glade does not issue that credential. The competitive peer environment is real and deliberate — children raise each other's standards. The formal instrument is criterion-referenced: the child is measured against the domain, never ranked against her peers.
+          </p>
+        </div>
+
+        <div class="doctrine-item reveal reveal-delay-3">
+          <span class="doctrine-num">III.</span>
+          <h3 class="doctrine-head">Formed,<br>not scheduled.</h3>
+          <p class="doctrine-body">
+            Ages five through twelve are the primary window for identity formation. A child who enters adolescence with a settled identity grounded in demonstrated competence, genuine values, and serious inherited culture is essentially non-recruitable by the subcultures of mediocrity and self-destruction she will inevitably encounter. The competition for her attention becomes too weak. This is what the K–6 years are for.
+          </p>
+        </div>
+
+        <div class="doctrine-item reveal reveal-delay-4">
+          <span class="doctrine-num">IV.</span>
+          <h3 class="doctrine-head">Wielded,<br>not consumed.</h3>
+          <p class="doctrine-body">
+            Technology at Glade is organized around a single distinction: children should wield it, not be consumed by it. AI as a building and inquiry tool is core to the program — the child is the agent, technology the instrument. Algorithmic consumption has no place in the school day. Unstructured time and genuine boredom are protected deliberately: they are the spaces in which curiosity, inner life, and the capacity to direct powerful tools actually form.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══ GEOGRAPHY ══ -->
+    <section>
+      <div class="geo-inner">
+        <div>
+          <p class="section-label reveal">The geography argument</p>
+          <h2 class="geo-heading reveal reveal-delay-1">
+            Bergen County is an <em>unfair advantage</em> for childhood.
+          </h2>
+          <div class="geo-body reveal reveal-delay-2">
+            <p>The Ramapos, the Palisades, the river corridors and county reservations — Bergen County sits on one of the most accessible natural landscapes in the American Northeast, twenty miles from one of the world's densest urban ecosystems. Most families near New York City must choose between cultural proximity and the kind of childhood that requires space, movement, and honest contact with the natural world. Bergen County does not force that choice.</p>
+            <p>This is not incidental to Glade's model. Movement in natural environments reliably frees the mind to observe and associate in ways that built environments cannot replicate. The best thinking happens when the body is occupied and attention is released. Bergen County makes this a daily structural condition, not a field trip.</p>
+            <p>The children formed here — rigorously, in motion, grounded in the physical world — will be equally positioned for Princeton and for Y Combinator. The talent locus shifts. It starts here.</p>
+          </div>
+        </div>
+        <div class="geo-stat-grid reveal reveal-delay-3">
+          <div class="geo-stat">
+            <div class="geo-stat-num">20<span style="font-size:1.3rem">mi</span></div>
+            <div class="geo-stat-label">To Midtown Manhattan</div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-num">5–12</div>
+            <div class="geo-stat-label">Ages served · Primary identity formation window</div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-num">2027</div>
+            <div class="geo-stat-label">Target opening · Founding cohort forming now</div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-num">75<span style="font-size:1.3rem">%</span></div>
+            <div class="geo-stat-label">Of lifetime parent-child time occurs before age twelve</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ FORMATION ══ -->
+    <section>
+      <div class="formation-center">
+        <p class="section-label reveal" style="justify-content: center; text-align: center;">What Glade forms</p>
+        <div class="formation-qualities reveal reveal-delay-1">
+          <span class="fq">Technically formidable</span>
+          <span class="fq-connector">·</span>
+          <span class="fq">Morally imperturbable</span>
+          <span class="fq-connector">·</span>
+          <span class="fq">Entrepreneurially sovereign</span>
+        </div>
+        <p class="formation-sub reveal reveal-delay-2">
+          These are not aspirations for exceptional children. They are the design target for every child.
+        </p>
+        <div class="rule reveal reveal-delay-2" style="margin-bottom: 2.5rem;"></div>
+        <p class="formation-manifesto reveal reveal-delay-3">
+          Glade is not trying to produce children who behave well under supervision. It is trying to produce children who have internalized a stable identity grounded in demonstrated competence, genuine values, and a serious inherited culture — children who are, in consequence, <strong>essentially non-recruitable</strong> by the subcultures of mediocrity and self-destruction they will inevitably encounter. A child who knows what she is capable of, who has a community of excellence to return to, who has a rich inner life built on real skill and serious ideas, simply does not find drug culture, social media nihilism, or peer-pressure status games interesting. <strong>The competition for her attention is too weak.</strong>
+        </p>
+        <div class="formation-pullquote reveal reveal-delay-4">
+          <p>A child surrounded by peers who practice instruments, carry themselves with the settled confidence of capable people, and come from homes where ideas and excellence matter operates at a different level. Glade designs this peer group deliberately. The twenty-year horizon includes the most selective universities in the world as one available option among several — and equally, leapfrogging that pathway entirely into early ventures, consequential research, or category-defining work that makes the credential beside the point. The terminal goal is not the option. <strong>The terminal goal is consequence.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ WHAT GLADE REFUSES ══ -->
+    <section>
+      <p class="section-label reveal">What Glade refuses</p>
+      <ul class="refusal-list">
+        <li class="reveal reveal-delay-1">
+          <span class="refusal-glyph">—</span>
+          <span>To advance children by age rather than mastery. Age-based cohorts are administrative convenience. Demonstrated competence is the only gate.</span>
+        </li>
+        <li class="reveal reveal-delay-1">
+          <span class="refusal-glyph">—</span>
+          <span>To use peer ranking as the primary feedback instrument. The competitive environment is real and deliberate. The formal assessment is criterion-referenced — the child is measured against the domain, not her classmates.</span>
+        </li>
+        <li class="reveal reveal-delay-2">
+          <span class="refusal-glyph">—</span>
+          <span>To let test optimization drive curriculum. Children who have genuinely mastered material will perform well on assessments. Curricula designed around those assessments produce children who can pass tests. These are not the same child.</span>
+        </li>
+        <li class="reveal reveal-delay-2">
+          <span class="refusal-glyph">—</span>
+          <span>To protect children from failure. Systematic protection from failure is developmental harm dressed as care. A child who has never failed in a context that matters has not yet learned that failure is recoverable, difficulty is informative, and persistence under uncertainty is a choice.</span>
+        </li>
+        <li class="reveal reveal-delay-3">
+          <span class="refusal-glyph">—</span>
+          <span>To allow technology that consumes rather than equips. AI as a building, inquiry, and creation tool belongs at the center of this program. Algorithmic feeds, engagement-optimized games, and passive entertainment have no place in the school day.</span>
+        </li>
+        <li class="reveal reveal-delay-3">
+          <span class="refusal-glyph">—</span>
+          <span>To be morally neutral about outcomes. Glade is explicitly forming children for excellence — intellectual, ethical, and practical. Not all peer cultures are equally beneficial. Not all outcomes are equally good. The school is not indifferent to what its graduates become.</span>
+        </li>
+        <li class="reveal reveal-delay-4">
+          <span class="refusal-glyph">—</span>
+          <span>To renegotiate its model for any individual family. Glade admits families, not children. Alignment is a prerequisite for enrollment. The program is the program.</span>
+        </li>
+      </ul>
+    </section>
+
+  </div><!-- /site -->
+
+  <!-- ══ THE FORM ══ -->
+  <div class="record-section" id="record">
+    <div class="record-inner">
+
+      <div class="record-copy">
+        <p class="section-label reveal" style="color:rgba(242,236,217,0.35);">Founding cohort</p>
+        <h2 class="record-heading reveal reveal-delay-1">
+          Applications for 2027<br>are not yet open.<br>Raise your hand.
+        </h2>
+        <div class="record-body reveal reveal-delay-2">
+          <p>We are assembling the founding cohort — the families whose investment, alignment, and belief will define what Glade becomes before it has culture to protect.</p>
+          <p>Founding families receive priority consideration for enrollment, early access to the curriculum framework, and the opportunity to be present at the beginning of something that will matter in twenty years.</p>
+          <p>Glade admits families, not children. If what you have read here is wrong or uncomfortable, this school is not for yours. If it is right — if it is urgent — your hand should already be up.</p>
+        </div>
+        <p class="record-note reveal reveal-delay-3">Bergen County, NJ · Target opening September 2027</p>
+      </div>
+
+      <div>
+        <form id="glade-form" class="reveal reveal-delay-2">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First name</label>
+              <input type="text" name="first_name" placeholder="Your first name" required>
+            </div>
+            <div class="form-group">
+              <label>Last name</label>
+              <input type="text" name="last_name" placeholder="Your last name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label>Children's current ages</label>
+            <input type="text" name="child_ages" placeholder="e.g. 3, 5 — or due in 2025">
+          </div>
+          <div class="form-group">
+            <label>Why Glade — in a sentence</label>
+            <textarea name="why" placeholder="What made you raise your hand?"></textarea>
+          </div>
+          <!-- Replace action with your Formspree ID: https://formspree.io/f/YOUR_ID -->
+          <button type="submit" class="form-submit">My hand is up →</button>
+          <p class="form-disclaimer">
+            No application is being made. No commitment is implied.<br>
+            Your information will not be shared or sold.
+          </p>
+        </form>
+
+        <div class="form-success" id="form-success">
+          <span class="form-success-glyph">◇</span>
+          <h3 class="form-success-head">Your hand is noted.</h3>
+          <p class="form-success-body">
+            We will be in touch as the founding cohort takes shape.<br>
+            Bergen County, New Jersey · Opening 2027
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="site">
+    <footer>
+      <span class="footer-mark">Glade</span>
+      <div class="footer-meta">
+        Bergen County, New Jersey<br>
+        glade.fliwheel.xyz · Target opening September 2027<br>
+        Confidential working document · Subject to revision
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => obs.observe(el));
+
+    // ── Form ──
+    // To activate: replace setTimeout block with:
+    // fetch('https://formspree.io/f/YOUR_FORM_ID', {
+    //   method: 'POST',
+    //   body: new FormData(form),
+    //   headers: { 'Accept': 'application/json' }
+    // }).then(r => r.ok ? showSuccess() : (btn.textContent = 'Something went wrong — try again', btn.disabled = false));
+    const form = document.getElementById('glade-form');
+    const success = document.getElementById('form-success');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('.form-submit');
+      btn.textContent = 'Recording…';
+      btn.disabled = true;
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('visible');
+      }, 800);
+    });
+
+    // ── Smooth anchor ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>
