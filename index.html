@@ -20,7 +20,7 @@
       --forest-mid:     #3A5E49;
       --gold:           #8C6614;
       --gold-warm:      #B88830;
-      --stone:          #6A6455;
+      --stone:          #524E42; /* darkened from #6A6455 for readability */
       --stone-light:    #9A9285;
       --cream-line:     rgba(25,23,15,0.1);
     }
@@ -85,8 +85,8 @@
     .hero-rule-line { flex: 1; height: 1px; background: var(--parchment-deep); }
     .hero-rule-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
     .hero-statement { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--ink); max-width: 640px; line-height: 1.45; margin-bottom: 1.5rem; }
-    /* REVISED: sub names the problem rather than repeating formation adjectives */
-    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--stone); max-width: 540px; line-height: 1.75; margin-bottom: 3rem; }
+    /* FIXED: changed from var(--stone) to var(--ink-muted) for readability */
+    .hero-sub { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(1rem, 1.8vw, 1.25rem); color: var(--ink-muted); max-width: 540px; line-height: 1.75; margin-bottom: 3rem; }
     .hero-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 3.5rem; }
     .hero-btn { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--parchment); background: var(--forest); padding: 1rem 2.4rem; text-decoration: none; border: 1px solid var(--forest); transition: background 0.3s, color 0.3s, letter-spacing 0.3s; }
     .hero-btn:hover { background: transparent; color: var(--forest); letter-spacing: 0.38em; }
@@ -117,7 +117,6 @@
     .geo-heading em { font-style: italic; color: var(--forest-mid); }
     .geo-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; line-height: 1.9; color: var(--ink-muted); }
     .geo-body p + p { margin-top: 1.2rem; }
-    /* REVISED: 3-column grid for 3 stats */
     .geo-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .geo-stat { padding: 1.75rem; background: var(--parchment-mid); border: 1px solid var(--parchment-deep); }
     .geo-stat-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.6rem; color: var(--forest); line-height: 1; margin-bottom: 0.4rem; }
@@ -139,7 +138,6 @@
     /* CIVILIZATION */
     .civilization-wrap { background: var(--parchment-mid); border: 1px solid var(--parchment-deep); padding: 5rem 6rem; text-align: center; max-width: 900px; margin: 0 auto; }
     @media (max-width: 768px) { .civilization-wrap { padding: 3rem 2rem; } }
-    /* REVISED: more grounded headline, no "save the world" */
     .civilization-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.6rem,3vw,2.3rem); color: var(--forest); line-height: 1.35; margin-bottom: 2rem; }
     .civilization-heading em { font-style: italic; }
     .civilization-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: clamp(1.05rem,1.9vw,1.3rem); color: var(--ink-muted); line-height: 1.9; max-width: 700px; margin: 0 auto; }
@@ -152,14 +150,22 @@
     .refusal-list li:first-child { border-top: 1px solid var(--cream-line); }
     .refusal-glyph { font-size: 0.6rem; letter-spacing: 0.15em; font-family: 'Jost', sans-serif; font-weight: 300; color: var(--gold); white-space: nowrap; margin-top: 0.35rem; flex-shrink: 0; }
 
+    /* PHILOSOPHY LINK */
+    .philosophy-link { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); text-decoration: none; border-bottom: 1px solid var(--parchment-deep); padding-bottom: 1px; transition: color 0.2s; }
+    .philosophy-link:hover { color: var(--forest); }
+
     /* RECORD */
     .record-section { background: var(--forest); margin: 0 -4rem; padding: 7rem 4rem; border-top: none; position: relative; overflow: hidden; }
     .record-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; }
     @media (max-width: 768px) { .record-section { margin: 0 -1.5rem; padding: 5rem 1.5rem; } }
     .record-center { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
     .record-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; color: var(--parchment); line-height: 1.25; }
-    .record-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; color: rgba(242,236,217,0.7); line-height: 1.9; }
-    .record-caveat { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.95rem; color: rgba(242,236,217,0.42); line-height: 1.75; }
+    /* FIXED: increased from 0.7 to 0.88 for readability */
+    .record-body { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.05rem; color: rgba(242,236,217,0.88); line-height: 1.9; }
+    /* FIXED: increased from 0.42 to 0.62 for readability */
+    .record-caveat { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.95rem; color: rgba(242,236,217,0.62); line-height: 1.75; }
+    /* Bold text in record section renders in parchment */
+    .record-center strong { font-weight: 600; color: var(--parchment); }
     .record-btn { display: inline-block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--forest); background: var(--parchment); padding: 1.15rem 3rem; text-decoration: none; border: 1px solid var(--parchment); transition: background 0.3s, color 0.3s, letter-spacing 0.3s; }
     .record-btn:hover { background: transparent; color: var(--parchment); letter-spacing: 0.45em; }
     .record-note { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(184,136,48,0.75); display: flex; align-items: center; gap: 0.8rem; }
@@ -168,10 +174,6 @@
     footer { border-top: 1px solid var(--cream-line); padding: 3rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .footer-mark { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 0.8rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--forest); }
     .footer-meta { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-align: right; line-height: 1.8; }
-  .record-center strong {
-  font-weight: 600;
-  color: var(--parchment);
-}
   </style>
 </head>
 <body>
@@ -237,7 +239,6 @@
         <div class="hero-rule-line"></div>
       </div>
       <p class="hero-statement hero-load hero-load-4">Childhood is the most important work.</p>
-      <!-- REVISED: names the problem, not the formation adjectives -->
       <p class="hero-sub hero-load hero-load-5">A new K–6 school taking shape in Bergen County for families who understand why the elementary years are everything — and who find what is currently available insufficient.</p>
       <p class="hero-meta hero-load hero-load-6">Nature-immersed · Mastery-based · Character-forward · Ages 5–12</p>
       <a href="#record" class="hero-btn hero-load hero-load-6" style="animation-delay:1.05s;">Raise your hand</a>
@@ -247,32 +248,26 @@
     <section>
       <p class="section-label reveal">What we believe</p>
       <div class="doctrine-grid">
-
         <div class="doctrine-item reveal reveal-delay-1">
           <span class="doctrine-num">I.</span>
           <h3 class="doctrine-head">Learners for life,<br>not students for the moment.</h3>
-          <!-- REVISED: last two sentences cut -->
           <p class="doctrine-body">A child who learns how to build knowledge — rather than receive it — has the one skill that compounds across every domain for an entire lifetime. Papert understood it: the most powerful learning produces something real outside the child's head, something that can succeed or fail on its own terms. A program. A model. A story. A proof.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-2">
           <span class="doctrine-num">II.</span>
           <h3 class="doctrine-head">Competence earns confidence.<br>Nothing else does.</h3>
           <p class="doctrine-body">The standard does not move because a child finds it difficult. Time is the variable; demonstrated mastery is the constant. A child who has done genuinely hard things, repeatedly, from an early age — who has failed, rebuilt, and succeeded in a context that mattered — carries a settled self-belief that no praise or credential can manufacture. Steve Jobs called it a reality distortion field. It is not a personality trait. It is the natural consequence of a childhood spent building real things and meeting real standards.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-3">
           <span class="doctrine-num">III.</span>
           <h3 class="doctrine-head">The courage<br>to be disliked.</h3>
           <p class="doctrine-body">Glade is not simply raising resilient children. It is walking alongside children toward a constitution strong enough to say no — to negative influence, to peer pressure, to the easy capitulation of going along. A child who arrives at that constitution does not wait for permission to choose differently. She affirmatively curates her own surroundings, her own influences, her own path. She has the rarest capability: the courage to be unpopular in service of what she knows is right. That constitution, built before adolescence, cannot be manufactured later. It takes root here, or it does not take root at all.</p>
         </div>
-
         <div class="doctrine-item reveal reveal-delay-4">
           <span class="doctrine-num">IV.</span>
           <h3 class="doctrine-head">Technology that serves.<br>Never technology that consumes.</h3>
           <p class="doctrine-body">A child who wields AI to build things — who directs powerful tools toward her own purposes — is positioned for every future. A child conditioned by algorithmic consumption is not. Glade also protects what most schools eliminate: genuine boredom, unstructured time, free play in the outdoors. These are not the absence of learning. They are the space in which curiosity, inner life, and the capacity to use powerful tools purposefully actually form.</p>
         </div>
-
       </div>
     </section>
 
@@ -288,7 +283,6 @@
             <p>The children raised here — rigorously, in motion, grounded in the physical world — will be equally positioned for Princeton, for Y Combinator, or for building the institutions that make both beside the point. This is where the next generation's best work takes root.</p>
           </div>
         </div>
-        <!-- REVISED: 3 stats, 3 columns — dropped 75% and 1+1=3 -->
         <div class="geo-stat-grid reveal reveal-delay-3">
           <div class="geo-stat">
             <div class="geo-stat-num">20<span style="font-size:1.3rem">mi</span></div>
@@ -327,7 +321,6 @@
     </section>
 
     <!-- CIVILIZATIONAL MISSION -->
-    <!-- REVISED: headline uses the grounded claim from the body; "save the world" removed -->
     <section>
       <div class="civilization-wrap reveal">
         <p class="section-label" style="justify-content:center; text-align:center; margin-bottom:2rem;">The mission</p>
@@ -359,6 +352,11 @@
     </section>
 
   </div><!-- /site -->
+
+  <!-- PHILOSOPHY LINK -->
+  <div style="text-align:center; padding:2rem 0 4rem; position:relative; z-index:1;">
+    <a href="/philosophy.html" class="philosophy-link">Read the founding philosophy in full →</a>
+  </div>
 
   <!-- RECORD -->
   <div class="record-section" id="record">
